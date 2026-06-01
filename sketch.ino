@@ -16,8 +16,8 @@
 #include <PubSubClient.h>
 
 // ── Configurações de rede ─────────────────────────────────────────────────────
-const char* SSID     = "Wokwi-GUEST";   // SSID padrão do simulador Wokwi
-const char* PASSWORD = "";              // sem senha no Wokwi
+const char* SSID     = "Wokwi-GUEST";
+const char* PASSWORD = "";
 
 // ── Broker MQTT ───────────────────────────────────────────────────────────────
 const char* MQTT_BROKER = "broker.hivemq.com";
@@ -32,7 +32,7 @@ const char* TOPIC_COMANDO = "iluminacao/comando";
 
 // ── Pinos ─────────────────────────────────────────────────────────────────────
 const int PIN_LDR  = 34;   // ADC – sensor de luminosidade
-const int PIN_RELE = 26;   // saída digital – relé (e LED)
+const int PIN_RELE = 13;   // saída digital – relé (e LED)
 const int PIN_LED  = 2;    // LED onboard (feedback visual)
 
 // ── Limiar de falha ───────────────────────────────────────────────────────────
@@ -49,9 +49,6 @@ PubSubClient mqtt(wifiClient);
 bool         releAtivo      = false;
 unsigned long ultimaPub     = 0;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Callback: mensagens recebidas no tópico subscrito
-// ─────────────────────────────────────────────────────────────────────────────
 void callbackMQTT(char* topic, byte* payload, unsigned int length) {
   String msg = "";
   for (unsigned int i = 0; i < length; i++) {
@@ -78,9 +75,6 @@ void callbackMQTT(char* topic, byte* payload, unsigned int length) {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Conexão Wi-Fi
-// ─────────────────────────────────────────────────────────────────────────────
 void conectarWiFi() {
   Serial.printf("\n[WiFi] Conectando a %s", SSID);
   WiFi.begin(SSID, PASSWORD);
@@ -91,9 +85,6 @@ void conectarWiFi() {
   Serial.printf("\n[WiFi] Conectado. IP: %s\n", WiFi.localIP().toString().c_str());
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Conexão MQTT (com reconexão automática)
-// ─────────────────────────────────────────────────────────────────────────────
 void conectarMQTT() {
   while (!mqtt.connected()) {
     Serial.printf("[MQTT] Conectando ao broker %s...\n", MQTT_BROKER);
@@ -108,9 +99,6 @@ void conectarMQTT() {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Setup
-// ─────────────────────────────────────────────────────────────────────────────
 void setup() {
   Serial.begin(115200);
 
@@ -126,9 +114,6 @@ void setup() {
   conectarMQTT();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Loop principal
-// ─────────────────────────────────────────────────────────────────────────────
 void loop() {
   // Mantém conexão MQTT ativa
   if (!mqtt.connected()) {
