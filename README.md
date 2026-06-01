@@ -1,6 +1,6 @@
 # Sistema de Detecção de Lâmpadas Queimadas em Iluminação Pública
 
-Projeto de IoT desenvolvido para a disciplina de Internet das Coisas — Universidade Presbiteriana Mackenzie.
+Projeto de IoT desenvolvido para a disciplina de Internet das Coisas - Universidade Presbiteriana Mackenzie.
 
 ## Alunos
 
@@ -31,10 +31,10 @@ Sistema embarcado com ESP32 que monitora a luminosidade de lâmpadas públicas v
 
 ## Arquivos
 
-- `sketch.ino` — firmware do ESP32
-- `diagram.json` — diagrama de montagem (Wokwi)
-- `libraries.txt` — dependências (Wokwi)
-- `mqtt_tester.py` — script Python para testar a comunicação MQTT
+- `sketch.ino` - firmware do ESP32
+- `diagram.json` - diagrama de montagem (Wokwi)
+- `libraries.txt` - dependências (Wokwi)
+- `mqtt_tester.py` - script Python para testar a comunicação MQTT
 
 ## Simulação
 
